@@ -42,20 +42,6 @@ public:
 private slots:
     void on_pushButton_clicked();
 
-    void on_pushButton_12_clicked();
-
-    void on_pushButton_13_clicked();
-
-    void on_pushButton_15_clicked();
-
-    void on_pushButton_8_clicked();
-
-    void on_pushButton_10_clicked();
-
-    void on_pushButton_7_clicked();
-
-    void on_pushButton_9_clicked();
-
     void on_button_search_clicked();
 
     void on_button_connect_clicked();
@@ -63,6 +49,30 @@ private slots:
     void on_button_url_clicked();
 
     void on_button_send_code_clicked();
+
+    void on_pushButton_XP_clicked();
+
+    void on_pushButton_XM_clicked();
+
+    void on_pushButton_YP_clicked();
+
+    void on_pushButton_YM_clicked();
+
+    void on_pushButton_ZP_clicked();
+
+    void on_pushButton_ZM_clicked();
+
+    void on_pushButton_GoHome_clicked();
+
+    void on_pushButton_GoOrigin_clicked();
+
+    void on_pushButton_SetOrigin_clicked();
+
+    void on_pushButton_SelectOrigin_clicked();
+
+    void on_pushButton_SelectAbsolute_clicked();
+
+    void on_pushButton_SendGCode_clicked();
 
 private:
     Ui::MainWindow *ui;

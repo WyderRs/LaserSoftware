@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>993</width>
+    <width>997</width>
     <height>786</height>
    </rect>
   </property>
@@ -19,8 +19,8 @@
      <rect>
       <x>610</x>
       <y>20</y>
-      <width>361</width>
-      <height>321</height>
+      <width>351</width>
+      <height>341</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -71,14 +71,20 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_13">
+          <widget class="QPushButton" name="pushButton_GoOrigin">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
             <string>Go origin</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_12">
+          <widget class="QPushButton" name="pushButton_GoHome">
            <property name="text">
             <string>Go home</string>
            </property>
@@ -108,97 +114,175 @@
         </layout>
        </item>
        <item>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="1" column="0">
+          <widget class="QPushButton" name="pushButton_XM">
+           <property name="minimumSize">
+            <size>
+             <width>20</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>X-</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QPushButton" name="pushButton_YM">
+           <property name="minimumSize">
+            <size>
+             <width>20</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Y-</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QPushButton" name="pushButton_YP">
+           <property name="minimumSize">
+            <size>
+             <width>20</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Y+</string>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QPushButton" name="pushButton_XP">
+           <property name="minimumSize">
+            <size>
+             <width>20</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>X+</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QPushButton" name="pushButton_ZP">
+           <property name="minimumSize">
+            <size>
+             <width>20</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Z+</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="3">
+          <widget class="QPushButton" name="pushButton_ZM">
+           <property name="minimumSize">
+            <size>
+             <width>20</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Z-</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <layout class="QGridLayout" name="gridLayout">
-           <item row="0" column="1">
-            <widget class="QPushButton" name="pushButton_8">
-             <property name="minimumSize">
-              <size>
-               <width>20</width>
-               <height>30</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>30</width>
-               <height>30</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Y+</string>
-             </property>
-             <property name="autoDefault">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="pushButton_9">
-             <property name="minimumSize">
-              <size>
-               <width>20</width>
-               <height>30</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>30</width>
-               <height>30</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>X-</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QPushButton" name="pushButton_7">
-             <property name="minimumSize">
-              <size>
-               <width>20</width>
-               <height>30</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>30</width>
-               <height>30</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>X+</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QPushButton" name="pushButton_10">
-             <property name="minimumSize">
-              <size>
-               <width>20</width>
-               <height>30</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>30</width>
-               <height>30</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Y-</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>G-code</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_12">
            <item>
-            <widget class="QLineEdit" name="lineEdit_5"/>
+            <widget class="QLineEdit" name="lineEdit_GCommandLine"/>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_5">
+            <widget class="QPushButton" name="pushButton_SendGCode">
              <property name="maximumSize">
               <size>
                <width>50</width>
@@ -211,16 +295,6 @@
             </widget>
            </item>
           </layout>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_5">
-           <property name="text">
-            <string>G-code</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
          </item>
         </layout>
        </item>
@@ -271,7 +345,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_8">
+              <widget class="QLineEdit" name="lineEdit_WP_X">
                <property name="font">
                 <font>
                  <pointsize>11</pointsize>
@@ -279,6 +353,9 @@
                </property>
                <property name="text">
                 <string>0.000</string>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
@@ -299,7 +376,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_12">
+              <widget class="QLineEdit" name="lineEdit_WP_Y">
                <property name="font">
                 <font>
                  <pointsize>11</pointsize>
@@ -307,6 +384,9 @@
                </property>
                <property name="text">
                 <string>0.000</string>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
@@ -327,7 +407,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_13">
+              <widget class="QLineEdit" name="lineEdit_WP_Z">
                <property name="font">
                 <font>
                  <pointsize>11</pointsize>
@@ -335,6 +415,9 @@
                </property>
                <property name="text">
                 <string>0.000</string>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
@@ -385,7 +468,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="lineEdit_9">
+            <widget class="QLineEdit" name="lineEdit_OP_X">
              <property name="font">
               <font>
                <pointsize>11</pointsize>
@@ -393,6 +476,9 @@
              </property>
              <property name="text">
               <string>0.000</string>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -413,7 +499,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="lineEdit_14">
+            <widget class="QLineEdit" name="lineEdit_OP_Y">
              <property name="font">
               <font>
                <pointsize>11</pointsize>
@@ -421,6 +507,9 @@
              </property>
              <property name="text">
               <string>0.000</string>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -441,7 +530,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="lineEdit_15">
+            <widget class="QLineEdit" name="lineEdit_OP_Z">
              <property name="font">
               <font>
                <pointsize>11</pointsize>
@@ -450,14 +539,67 @@
              <property name="text">
               <string>0.000</string>
              </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
           </layout>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_15">
+          <widget class="QPushButton" name="pushButton_SetOrigin">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>20</height>
+            </size>
+           </property>
            <property name="text">
             <string>Set origin</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_SelectOrigin">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Select relative</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_SelectAbsolute">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Select absolute</string>
            </property>
           </widget>
          </item>
@@ -473,12 +615,17 @@
       <x>10</x>
       <y>20</y>
       <width>171</width>
-      <height>81</height>
+      <height>85</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_6">
      <item>
       <widget class="QLabel" name="label_10">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>Comport</string>
        </property>
@@ -527,17 +674,23 @@
      <rect>
       <x>190</x>
       <y>20</y>
-      <width>361</width>
+      <width>402</width>
       <height>85</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
       <widget class="QLabel" name="label_7">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="maximumSize">
         <size>
-         <width>16777215</width>
-         <height>25</height>
+         <width>399</width>
+         <height>21</height>
         </size>
        </property>
        <property name="font">
@@ -557,6 +710,23 @@
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
         <widget class="QLabel" name="label">
+         <property name="minimumSize">
+          <size>
+           <width>50</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>50</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>File URL</string>
          </property>
@@ -567,6 +737,18 @@
        </item>
        <item>
         <widget class="QLineEdit" name="lineEdit_file_URL">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>400</width>
+           <height>16777215</height>
+          </size>
+         </property>
          <property name="text">
           <string>C:/Qt_Doc/ToolTable/cnc/Circle_file.nc</string>
          </property>
@@ -589,6 +771,18 @@
      </item>
      <item>
       <widget class="QPushButton" name="button_send_code">
+       <property name="minimumSize">
+        <size>
+         <width>400</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>400</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="text">
         <string>Send</string>
        </property>
@@ -600,9 +794,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>110</y>
+      <y>120</y>
       <width>171</width>
-      <height>181</height>
+      <height>171</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -641,12 +835,24 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>993</width>
+     <width>997</width>
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen_file"/>
+   </widget>
+   <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionOpen_file">
+   <property name="text">
+    <string>Open file...</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

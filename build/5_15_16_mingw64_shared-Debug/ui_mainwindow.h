@@ -10,6 +10,7 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QFrame>
@@ -18,6 +19,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
@@ -30,52 +32,57 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
+    QAction *actionOpen_file;
     QWidget *centralwidget;
     QFrame *frame;
     QGridLayout *gridLayout_2;
     QVBoxLayout *verticalLayout_7;
     QVBoxLayout *verticalLayout_4;
     QLabel *label_6;
-    QPushButton *pushButton_13;
-    QPushButton *pushButton_12;
+    QPushButton *pushButton_GoOrigin;
+    QPushButton *pushButton_GoHome;
     QHBoxLayout *horizontalLayout;
     QLabel *label_3;
     QLineEdit *lineEdit_step;
-    QVBoxLayout *verticalLayout;
     QGridLayout *gridLayout;
-    QPushButton *pushButton_8;
-    QPushButton *pushButton_9;
-    QPushButton *pushButton_7;
-    QPushButton *pushButton_10;
-    QHBoxLayout *horizontalLayout_12;
-    QLineEdit *lineEdit_5;
-    QPushButton *pushButton_5;
+    QPushButton *pushButton_XM;
+    QPushButton *pushButton_YM;
+    QPushButton *pushButton_YP;
+    QPushButton *pushButton_XP;
+    QPushButton *pushButton_ZP;
+    QPushButton *pushButton_ZM;
+    QVBoxLayout *verticalLayout;
     QLabel *label_5;
+    QHBoxLayout *horizontalLayout_12;
+    QLineEdit *lineEdit_GCommandLine;
+    QPushButton *pushButton_SendGCode;
     QVBoxLayout *verticalLayout_9;
     QVBoxLayout *verticalLayout_8;
     QLabel *label_15;
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout_6;
     QLabel *label_4;
-    QLineEdit *lineEdit_8;
+    QLineEdit *lineEdit_WP_X;
     QHBoxLayout *horizontalLayout_7;
     QLabel *label_8;
-    QLineEdit *lineEdit_12;
+    QLineEdit *lineEdit_WP_Y;
     QHBoxLayout *horizontalLayout_8;
     QLabel *label_9;
-    QLineEdit *lineEdit_13;
+    QLineEdit *lineEdit_WP_Z;
     QVBoxLayout *verticalLayout_5;
     QLabel *label_14;
     QHBoxLayout *horizontalLayout_5;
     QLabel *label_11;
-    QLineEdit *lineEdit_9;
+    QLineEdit *lineEdit_OP_X;
     QHBoxLayout *horizontalLayout_9;
     QLabel *label_12;
-    QLineEdit *lineEdit_14;
+    QLineEdit *lineEdit_OP_Y;
     QHBoxLayout *horizontalLayout_11;
     QLabel *label_13;
-    QLineEdit *lineEdit_15;
-    QPushButton *pushButton_15;
+    QLineEdit *lineEdit_OP_Z;
+    QPushButton *pushButton_SetOrigin;
+    QPushButton *pushButton_SelectOrigin;
+    QPushButton *pushButton_SelectAbsolute;
     QWidget *layoutWidget;
     QVBoxLayout *verticalLayout_6;
     QLabel *label_10;
@@ -96,18 +103,21 @@ public:
     QLabel *label_16;
     QPlainTextEdit *plainTextEdit_log;
     QMenuBar *menubar;
+    QMenu *menuFile;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(993, 786);
+        MainWindow->resize(997, 786);
+        actionOpen_file = new QAction(MainWindow);
+        actionOpen_file->setObjectName(QString::fromUtf8("actionOpen_file"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         frame = new QFrame(centralwidget);
         frame->setObjectName(QString::fromUtf8("frame"));
-        frame->setGeometry(QRect(610, 20, 361, 321));
+        frame->setGeometry(QRect(610, 20, 351, 341));
         frame->setFrameShape(QFrame::Box);
         frame->setFrameShadow(QFrame::Raised);
         gridLayout_2 = new QGridLayout(frame);
@@ -129,15 +139,16 @@ public:
 
         verticalLayout_4->addWidget(label_6);
 
-        pushButton_13 = new QPushButton(frame);
-        pushButton_13->setObjectName(QString::fromUtf8("pushButton_13"));
+        pushButton_GoOrigin = new QPushButton(frame);
+        pushButton_GoOrigin->setObjectName(QString::fromUtf8("pushButton_GoOrigin"));
+        pushButton_GoOrigin->setMinimumSize(QSize(0, 0));
 
-        verticalLayout_4->addWidget(pushButton_13);
+        verticalLayout_4->addWidget(pushButton_GoOrigin);
 
-        pushButton_12 = new QPushButton(frame);
-        pushButton_12->setObjectName(QString::fromUtf8("pushButton_12"));
+        pushButton_GoHome = new QPushButton(frame);
+        pushButton_GoHome->setObjectName(QString::fromUtf8("pushButton_GoHome"));
 
-        verticalLayout_4->addWidget(pushButton_12);
+        verticalLayout_4->addWidget(pushButton_GoHome);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
@@ -158,63 +169,83 @@ public:
 
         verticalLayout_7->addLayout(verticalLayout_4);
 
-        verticalLayout = new QVBoxLayout();
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         gridLayout = new QGridLayout();
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        pushButton_8 = new QPushButton(frame);
-        pushButton_8->setObjectName(QString::fromUtf8("pushButton_8"));
-        pushButton_8->setMinimumSize(QSize(20, 30));
-        pushButton_8->setMaximumSize(QSize(30, 30));
-        pushButton_8->setAutoDefault(false);
+        pushButton_XM = new QPushButton(frame);
+        pushButton_XM->setObjectName(QString::fromUtf8("pushButton_XM"));
+        pushButton_XM->setMinimumSize(QSize(20, 30));
+        pushButton_XM->setMaximumSize(QSize(30, 30));
+        pushButton_XM->setFont(font);
 
-        gridLayout->addWidget(pushButton_8, 0, 1, 1, 1);
+        gridLayout->addWidget(pushButton_XM, 1, 0, 1, 1);
 
-        pushButton_9 = new QPushButton(frame);
-        pushButton_9->setObjectName(QString::fromUtf8("pushButton_9"));
-        pushButton_9->setMinimumSize(QSize(20, 30));
-        pushButton_9->setMaximumSize(QSize(30, 30));
+        pushButton_YM = new QPushButton(frame);
+        pushButton_YM->setObjectName(QString::fromUtf8("pushButton_YM"));
+        pushButton_YM->setMinimumSize(QSize(20, 30));
+        pushButton_YM->setMaximumSize(QSize(30, 30));
+        pushButton_YM->setFont(font);
 
-        gridLayout->addWidget(pushButton_9, 1, 0, 1, 1);
+        gridLayout->addWidget(pushButton_YM, 2, 1, 1, 1);
 
-        pushButton_7 = new QPushButton(frame);
-        pushButton_7->setObjectName(QString::fromUtf8("pushButton_7"));
-        pushButton_7->setMinimumSize(QSize(20, 30));
-        pushButton_7->setMaximumSize(QSize(30, 30));
+        pushButton_YP = new QPushButton(frame);
+        pushButton_YP->setObjectName(QString::fromUtf8("pushButton_YP"));
+        pushButton_YP->setMinimumSize(QSize(20, 30));
+        pushButton_YP->setMaximumSize(QSize(30, 30));
+        pushButton_YP->setFont(font);
+        pushButton_YP->setAutoDefault(false);
 
-        gridLayout->addWidget(pushButton_7, 1, 2, 1, 1);
+        gridLayout->addWidget(pushButton_YP, 0, 1, 1, 1);
 
-        pushButton_10 = new QPushButton(frame);
-        pushButton_10->setObjectName(QString::fromUtf8("pushButton_10"));
-        pushButton_10->setMinimumSize(QSize(20, 30));
-        pushButton_10->setMaximumSize(QSize(30, 30));
+        pushButton_XP = new QPushButton(frame);
+        pushButton_XP->setObjectName(QString::fromUtf8("pushButton_XP"));
+        pushButton_XP->setMinimumSize(QSize(20, 30));
+        pushButton_XP->setMaximumSize(QSize(30, 30));
+        pushButton_XP->setFont(font);
 
-        gridLayout->addWidget(pushButton_10, 2, 1, 1, 1);
+        gridLayout->addWidget(pushButton_XP, 1, 2, 1, 1);
+
+        pushButton_ZP = new QPushButton(frame);
+        pushButton_ZP->setObjectName(QString::fromUtf8("pushButton_ZP"));
+        pushButton_ZP->setMinimumSize(QSize(20, 30));
+        pushButton_ZP->setMaximumSize(QSize(30, 30));
+        pushButton_ZP->setFont(font);
+
+        gridLayout->addWidget(pushButton_ZP, 0, 3, 1, 1);
+
+        pushButton_ZM = new QPushButton(frame);
+        pushButton_ZM->setObjectName(QString::fromUtf8("pushButton_ZM"));
+        pushButton_ZM->setMinimumSize(QSize(20, 30));
+        pushButton_ZM->setMaximumSize(QSize(30, 30));
+        pushButton_ZM->setFont(font);
+
+        gridLayout->addWidget(pushButton_ZM, 2, 3, 1, 1);
 
 
-        verticalLayout->addLayout(gridLayout);
+        verticalLayout_7->addLayout(gridLayout);
 
-        horizontalLayout_12 = new QHBoxLayout();
-        horizontalLayout_12->setObjectName(QString::fromUtf8("horizontalLayout_12"));
-        lineEdit_5 = new QLineEdit(frame);
-        lineEdit_5->setObjectName(QString::fromUtf8("lineEdit_5"));
-
-        horizontalLayout_12->addWidget(lineEdit_5);
-
-        pushButton_5 = new QPushButton(frame);
-        pushButton_5->setObjectName(QString::fromUtf8("pushButton_5"));
-        pushButton_5->setMaximumSize(QSize(50, 16777215));
-
-        horizontalLayout_12->addWidget(pushButton_5);
-
-
-        verticalLayout->addLayout(horizontalLayout_12);
-
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         label_5 = new QLabel(frame);
         label_5->setObjectName(QString::fromUtf8("label_5"));
         label_5->setAlignment(Qt::AlignCenter);
 
         verticalLayout->addWidget(label_5);
+
+        horizontalLayout_12 = new QHBoxLayout();
+        horizontalLayout_12->setObjectName(QString::fromUtf8("horizontalLayout_12"));
+        lineEdit_GCommandLine = new QLineEdit(frame);
+        lineEdit_GCommandLine->setObjectName(QString::fromUtf8("lineEdit_GCommandLine"));
+
+        horizontalLayout_12->addWidget(lineEdit_GCommandLine);
+
+        pushButton_SendGCode = new QPushButton(frame);
+        pushButton_SendGCode->setObjectName(QString::fromUtf8("pushButton_SendGCode"));
+        pushButton_SendGCode->setMaximumSize(QSize(50, 16777215));
+
+        horizontalLayout_12->addWidget(pushButton_SendGCode);
+
+
+        verticalLayout->addLayout(horizontalLayout_12);
 
 
         verticalLayout_7->addLayout(verticalLayout);
@@ -245,13 +276,14 @@ public:
 
         horizontalLayout_6->addWidget(label_4);
 
-        lineEdit_8 = new QLineEdit(frame);
-        lineEdit_8->setObjectName(QString::fromUtf8("lineEdit_8"));
+        lineEdit_WP_X = new QLineEdit(frame);
+        lineEdit_WP_X->setObjectName(QString::fromUtf8("lineEdit_WP_X"));
         QFont font1;
         font1.setPointSize(11);
-        lineEdit_8->setFont(font1);
+        lineEdit_WP_X->setFont(font1);
+        lineEdit_WP_X->setReadOnly(true);
 
-        horizontalLayout_6->addWidget(lineEdit_8);
+        horizontalLayout_6->addWidget(lineEdit_WP_X);
 
 
         verticalLayout_2->addLayout(horizontalLayout_6);
@@ -264,11 +296,12 @@ public:
 
         horizontalLayout_7->addWidget(label_8);
 
-        lineEdit_12 = new QLineEdit(frame);
-        lineEdit_12->setObjectName(QString::fromUtf8("lineEdit_12"));
-        lineEdit_12->setFont(font1);
+        lineEdit_WP_Y = new QLineEdit(frame);
+        lineEdit_WP_Y->setObjectName(QString::fromUtf8("lineEdit_WP_Y"));
+        lineEdit_WP_Y->setFont(font1);
+        lineEdit_WP_Y->setReadOnly(true);
 
-        horizontalLayout_7->addWidget(lineEdit_12);
+        horizontalLayout_7->addWidget(lineEdit_WP_Y);
 
 
         verticalLayout_2->addLayout(horizontalLayout_7);
@@ -281,11 +314,12 @@ public:
 
         horizontalLayout_8->addWidget(label_9);
 
-        lineEdit_13 = new QLineEdit(frame);
-        lineEdit_13->setObjectName(QString::fromUtf8("lineEdit_13"));
-        lineEdit_13->setFont(font1);
+        lineEdit_WP_Z = new QLineEdit(frame);
+        lineEdit_WP_Z->setObjectName(QString::fromUtf8("lineEdit_WP_Z"));
+        lineEdit_WP_Z->setFont(font1);
+        lineEdit_WP_Z->setReadOnly(true);
 
-        horizontalLayout_8->addWidget(lineEdit_13);
+        horizontalLayout_8->addWidget(lineEdit_WP_Z);
 
 
         verticalLayout_2->addLayout(horizontalLayout_8);
@@ -315,11 +349,12 @@ public:
 
         horizontalLayout_5->addWidget(label_11);
 
-        lineEdit_9 = new QLineEdit(frame);
-        lineEdit_9->setObjectName(QString::fromUtf8("lineEdit_9"));
-        lineEdit_9->setFont(font1);
+        lineEdit_OP_X = new QLineEdit(frame);
+        lineEdit_OP_X->setObjectName(QString::fromUtf8("lineEdit_OP_X"));
+        lineEdit_OP_X->setFont(font1);
+        lineEdit_OP_X->setReadOnly(true);
 
-        horizontalLayout_5->addWidget(lineEdit_9);
+        horizontalLayout_5->addWidget(lineEdit_OP_X);
 
 
         verticalLayout_5->addLayout(horizontalLayout_5);
@@ -332,11 +367,12 @@ public:
 
         horizontalLayout_9->addWidget(label_12);
 
-        lineEdit_14 = new QLineEdit(frame);
-        lineEdit_14->setObjectName(QString::fromUtf8("lineEdit_14"));
-        lineEdit_14->setFont(font1);
+        lineEdit_OP_Y = new QLineEdit(frame);
+        lineEdit_OP_Y->setObjectName(QString::fromUtf8("lineEdit_OP_Y"));
+        lineEdit_OP_Y->setFont(font1);
+        lineEdit_OP_Y->setReadOnly(true);
 
-        horizontalLayout_9->addWidget(lineEdit_14);
+        horizontalLayout_9->addWidget(lineEdit_OP_Y);
 
 
         verticalLayout_5->addLayout(horizontalLayout_9);
@@ -349,19 +385,36 @@ public:
 
         horizontalLayout_11->addWidget(label_13);
 
-        lineEdit_15 = new QLineEdit(frame);
-        lineEdit_15->setObjectName(QString::fromUtf8("lineEdit_15"));
-        lineEdit_15->setFont(font1);
+        lineEdit_OP_Z = new QLineEdit(frame);
+        lineEdit_OP_Z->setObjectName(QString::fromUtf8("lineEdit_OP_Z"));
+        lineEdit_OP_Z->setFont(font1);
+        lineEdit_OP_Z->setReadOnly(true);
 
-        horizontalLayout_11->addWidget(lineEdit_15);
+        horizontalLayout_11->addWidget(lineEdit_OP_Z);
 
 
         verticalLayout_5->addLayout(horizontalLayout_11);
 
-        pushButton_15 = new QPushButton(frame);
-        pushButton_15->setObjectName(QString::fromUtf8("pushButton_15"));
+        pushButton_SetOrigin = new QPushButton(frame);
+        pushButton_SetOrigin->setObjectName(QString::fromUtf8("pushButton_SetOrigin"));
+        pushButton_SetOrigin->setMinimumSize(QSize(0, 20));
+        pushButton_SetOrigin->setMaximumSize(QSize(16777215, 20));
 
-        verticalLayout_5->addWidget(pushButton_15);
+        verticalLayout_5->addWidget(pushButton_SetOrigin);
+
+        pushButton_SelectOrigin = new QPushButton(frame);
+        pushButton_SelectOrigin->setObjectName(QString::fromUtf8("pushButton_SelectOrigin"));
+        pushButton_SelectOrigin->setMinimumSize(QSize(0, 20));
+        pushButton_SelectOrigin->setMaximumSize(QSize(16777215, 20));
+
+        verticalLayout_5->addWidget(pushButton_SelectOrigin);
+
+        pushButton_SelectAbsolute = new QPushButton(frame);
+        pushButton_SelectAbsolute->setObjectName(QString::fromUtf8("pushButton_SelectAbsolute"));
+        pushButton_SelectAbsolute->setMinimumSize(QSize(0, 20));
+        pushButton_SelectAbsolute->setMaximumSize(QSize(16777215, 20));
+
+        verticalLayout_5->addWidget(pushButton_SelectAbsolute);
 
 
         verticalLayout_9->addLayout(verticalLayout_5);
@@ -371,12 +424,13 @@ public:
 
         layoutWidget = new QWidget(centralwidget);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(10, 20, 171, 81));
+        layoutWidget->setGeometry(QRect(10, 20, 171, 85));
         verticalLayout_6 = new QVBoxLayout(layoutWidget);
         verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
         verticalLayout_6->setContentsMargins(0, 0, 0, 0);
         label_10 = new QLabel(layoutWidget);
         label_10->setObjectName(QString::fromUtf8("label_10"));
+        label_10->setFont(font);
         label_10->setAlignment(Qt::AlignCenter);
 
         verticalLayout_6->addWidget(label_10);
@@ -405,13 +459,14 @@ public:
 
         layoutWidget1 = new QWidget(centralwidget);
         layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(190, 20, 361, 85));
+        layoutWidget1->setGeometry(QRect(190, 20, 402, 85));
         verticalLayout_3 = new QVBoxLayout(layoutWidget1);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         verticalLayout_3->setContentsMargins(0, 0, 0, 0);
         label_7 = new QLabel(layoutWidget1);
         label_7->setObjectName(QString::fromUtf8("label_7"));
-        label_7->setMaximumSize(QSize(16777215, 25));
+        label_7->setMinimumSize(QSize(0, 0));
+        label_7->setMaximumSize(QSize(399, 21));
         label_7->setFont(font);
         label_7->setAlignment(Qt::AlignCenter);
 
@@ -421,12 +476,19 @@ public:
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         label = new QLabel(layoutWidget1);
         label->setObjectName(QString::fromUtf8("label"));
+        label->setMinimumSize(QSize(50, 0));
+        label->setMaximumSize(QSize(50, 16777215));
+        QFont font2;
+        font2.setPointSize(10);
+        label->setFont(font2);
         label->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_3->addWidget(label);
 
         lineEdit_file_URL = new QLineEdit(layoutWidget1);
         lineEdit_file_URL->setObjectName(QString::fromUtf8("lineEdit_file_URL"));
+        lineEdit_file_URL->setMinimumSize(QSize(200, 0));
+        lineEdit_file_URL->setMaximumSize(QSize(400, 16777215));
 
         horizontalLayout_3->addWidget(lineEdit_file_URL);
 
@@ -441,12 +503,14 @@ public:
 
         button_send_code = new QPushButton(layoutWidget1);
         button_send_code->setObjectName(QString::fromUtf8("button_send_code"));
+        button_send_code->setMinimumSize(QSize(400, 0));
+        button_send_code->setMaximumSize(QSize(400, 16777215));
 
         verticalLayout_3->addWidget(button_send_code);
 
         layoutWidget2 = new QWidget(centralwidget);
         layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(10, 110, 171, 181));
+        layoutWidget2->setGeometry(QRect(10, 120, 171, 171));
         verticalLayout_10 = new QVBoxLayout(layoutWidget2);
         verticalLayout_10->setObjectName(QString::fromUtf8("verticalLayout_10"));
         verticalLayout_10->setContentsMargins(0, 0, 0, 0);
@@ -467,11 +531,16 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 993, 21));
+        menubar->setGeometry(QRect(0, 0, 997, 21));
+        menuFile = new QMenu(menubar);
+        menuFile->setObjectName(QString::fromUtf8("menuFile"));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
         MainWindow->setStatusBar(statusbar);
+
+        menubar->addAction(menuFile->menuAction());
+        menuFile->addAction(actionOpen_file);
 
         retranslateUi(MainWindow);
 
@@ -481,32 +550,37 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+        actionOpen_file->setText(QCoreApplication::translate("MainWindow", "Open file...", nullptr));
         label_6->setText(QCoreApplication::translate("MainWindow", "Hand Mode", nullptr));
-        pushButton_13->setText(QCoreApplication::translate("MainWindow", "Go origin", nullptr));
-        pushButton_12->setText(QCoreApplication::translate("MainWindow", "Go home", nullptr));
+        pushButton_GoOrigin->setText(QCoreApplication::translate("MainWindow", "Go origin", nullptr));
+        pushButton_GoHome->setText(QCoreApplication::translate("MainWindow", "Go home", nullptr));
         label_3->setText(QCoreApplication::translate("MainWindow", "Step", nullptr));
         lineEdit_step->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
-        pushButton_8->setText(QCoreApplication::translate("MainWindow", "Y+", nullptr));
-        pushButton_9->setText(QCoreApplication::translate("MainWindow", "X-", nullptr));
-        pushButton_7->setText(QCoreApplication::translate("MainWindow", "X+", nullptr));
-        pushButton_10->setText(QCoreApplication::translate("MainWindow", "Y-", nullptr));
-        pushButton_5->setText(QCoreApplication::translate("MainWindow", "->", nullptr));
+        pushButton_XM->setText(QCoreApplication::translate("MainWindow", "X-", nullptr));
+        pushButton_YM->setText(QCoreApplication::translate("MainWindow", "Y-", nullptr));
+        pushButton_YP->setText(QCoreApplication::translate("MainWindow", "Y+", nullptr));
+        pushButton_XP->setText(QCoreApplication::translate("MainWindow", "X+", nullptr));
+        pushButton_ZP->setText(QCoreApplication::translate("MainWindow", "Z+", nullptr));
+        pushButton_ZM->setText(QCoreApplication::translate("MainWindow", "Z-", nullptr));
         label_5->setText(QCoreApplication::translate("MainWindow", "G-code", nullptr));
+        pushButton_SendGCode->setText(QCoreApplication::translate("MainWindow", "->", nullptr));
         label_15->setText(QCoreApplication::translate("MainWindow", "Work position", nullptr));
         label_4->setText(QCoreApplication::translate("MainWindow", "X:", nullptr));
-        lineEdit_8->setText(QCoreApplication::translate("MainWindow", "0.000", nullptr));
+        lineEdit_WP_X->setText(QCoreApplication::translate("MainWindow", "0.000", nullptr));
         label_8->setText(QCoreApplication::translate("MainWindow", "Y:", nullptr));
-        lineEdit_12->setText(QCoreApplication::translate("MainWindow", "0.000", nullptr));
+        lineEdit_WP_Y->setText(QCoreApplication::translate("MainWindow", "0.000", nullptr));
         label_9->setText(QCoreApplication::translate("MainWindow", "Z:", nullptr));
-        lineEdit_13->setText(QCoreApplication::translate("MainWindow", "0.000", nullptr));
+        lineEdit_WP_Z->setText(QCoreApplication::translate("MainWindow", "0.000", nullptr));
         label_14->setText(QCoreApplication::translate("MainWindow", "Origin position", nullptr));
         label_11->setText(QCoreApplication::translate("MainWindow", "X:", nullptr));
-        lineEdit_9->setText(QCoreApplication::translate("MainWindow", "0.000", nullptr));
+        lineEdit_OP_X->setText(QCoreApplication::translate("MainWindow", "0.000", nullptr));
         label_12->setText(QCoreApplication::translate("MainWindow", "Y:", nullptr));
-        lineEdit_14->setText(QCoreApplication::translate("MainWindow", "0.000", nullptr));
+        lineEdit_OP_Y->setText(QCoreApplication::translate("MainWindow", "0.000", nullptr));
         label_13->setText(QCoreApplication::translate("MainWindow", "Z:", nullptr));
-        lineEdit_15->setText(QCoreApplication::translate("MainWindow", "0.000", nullptr));
-        pushButton_15->setText(QCoreApplication::translate("MainWindow", "Set origin", nullptr));
+        lineEdit_OP_Z->setText(QCoreApplication::translate("MainWindow", "0.000", nullptr));
+        pushButton_SetOrigin->setText(QCoreApplication::translate("MainWindow", "Set origin", nullptr));
+        pushButton_SelectOrigin->setText(QCoreApplication::translate("MainWindow", "Select relative", nullptr));
+        pushButton_SelectAbsolute->setText(QCoreApplication::translate("MainWindow", "Select absolute", nullptr));
         label_10->setText(QCoreApplication::translate("MainWindow", "Comport", nullptr));
         button_search->setText(QCoreApplication::translate("MainWindow", "Search", nullptr));
         button_connect->setText(QCoreApplication::translate("MainWindow", "Connect", nullptr));
@@ -516,6 +590,7 @@ public:
         button_url->setText(QCoreApplication::translate("MainWindow", "///", nullptr));
         button_send_code->setText(QCoreApplication::translate("MainWindow", "Send", nullptr));
         label_16->setText(QCoreApplication::translate("MainWindow", "Terminal", nullptr));
+        menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
     } // retranslateUi
 
 };

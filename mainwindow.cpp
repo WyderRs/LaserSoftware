@@ -7,6 +7,28 @@
 
 #include "config.h"
 
+enum last_command {
+    none = 0,
+    write,
+} last_command;
+
+
+struct Coordinates {
+    float machine_x;
+    float machine_y;
+    float machine_z;
+
+    float origin_x;
+    float origin_y;
+    float origin_z;
+
+    float work_x;
+    float work_y;
+    float work_z;
+
+
+} Coordinates;
+
 /******************************************/
 typedef struct COMPort_config_t {
     QList<QString>  comports;
@@ -73,8 +95,26 @@ void MainWindow::onWriteResult(bool success, qint64 n, const QString &error)
 void MainWindow::onDataReceived(const QByteArray &data)
 {
     // сюда приходят входящие байты — выводим в консоль
-    // ui->plainTextEdit_log->appendPlainText(QString::fromLatin1(data));
+    if (last_command == write) {
+
+        float x, y, z;
+        memcpy(&x, data.constData() + 0, 4);
+        memcpy(&y, data.constData() + 4, 4);
+        memcpy(&z, data.constData() + 8, 4);
+
+        Coordinates.work_x = x;
+        Coordinates.work_y = y;
+        Coordinates.work_z = z;
+
+        ui->lineEdit_WP_X->setText(QString::number(x, 'f', 3));
+        ui->lineEdit_WP_Y->setText(QString::number(y, 'f', 3));
+        ui->lineEdit_WP_Z->setText(QString::number(z, 'f', 3));
+
+        last_command = none;
+    }
+
     ui->plainTextEdit_log->appendPlainText(data);
+    qInfo() << data << '\n';
 }
 
 void MainWindow::onCodeFinished(bool success, const QString &error)
@@ -140,79 +180,164 @@ void MainWindow::on_button_send_code_clicked() {
 
 
 /* Go Home */
-void MainWindow::on_pushButton_12_clicked() {
+void MainWindow::on_pushButton_GoHome_clicked() {
     QByteArray home_cmd;
     home_cmd.append(3);
     home_cmd.append("G28");
     home_cmd.append(END_COMMAND);
     emit requestWrite(home_cmd);
+
+    Coordinates.work_x = 0;
+    Coordinates.work_y = 0;
+    Coordinates.work_z = 0;
+
 }
 /* Go Origin */
-void MainWindow::on_pushButton_13_clicked() {
-    QByteArray home_cmd;
-    home_cmd.append(3);
-    home_cmd.append("G0X0Y0Z0");
-    home_cmd.append(END_COMMAND);
-    emit requestWrite(home_cmd);
+void MainWindow::on_pushButton_GoOrigin_clicked() {
+    QByteArray origin_cmd;
+    origin_cmd.append(8);
+    origin_cmd.append("G0X0Y0Z0");
+    origin_cmd.append(END_COMMAND);
+    emit requestWrite(origin_cmd);
 }
 /* Set Origin */
-void MainWindow::on_pushButton_15_clicked()
+void MainWindow::on_pushButton_SetOrigin_clicked()
 {
+    QByteArray set_origin_cmd;
+    set_origin_cmd.append(3);
+    set_origin_cmd.append("G92");
+    set_origin_cmd.append(END_COMMAND);
+    emit requestWrite(set_origin_cmd);
+
+    Coordinates.origin_x = Coordinates.work_x;
+    Coordinates.origin_y = Coordinates.work_y;
+    Coordinates.origin_z = Coordinates.work_z;
+
+    ui->lineEdit_WP_X->setText(QString::number(0));
+    ui->lineEdit_WP_Y->setText(QString::number(0));
+    ui->lineEdit_WP_Z->setText(QString::number(0));
+
+    ui->lineEdit_OP_X->setText(QString::number(Coordinates.origin_x));
+    ui->lineEdit_OP_Y->setText(QString::number(Coordinates.origin_y));
+    ui->lineEdit_OP_Z->setText(QString::number(Coordinates.origin_z));
+}
+/* Select origin */
+void MainWindow::on_pushButton_SelectOrigin_clicked()
+{
+    QByteArray origin_cmd;
+    origin_cmd.append(3);
+    origin_cmd.append("G91");
+    origin_cmd.append(END_COMMAND);
+    emit requestWrite(origin_cmd);
+
+    ui->lineEdit_WP_X->setText(QString::number(Coordinates.work_x - Coordinates.origin_x));
+    ui->lineEdit_WP_Y->setText(QString::number(Coordinates.work_y - Coordinates.origin_y));
+    ui->lineEdit_WP_Z->setText(QString::number(Coordinates.work_z - Coordinates.origin_z));
 
 }
-/* Move -Y */
-void MainWindow::on_pushButton_8_clicked()
-{
-    QByteArray home_cmd;
-    bool flag = false;
-    home_cmd.append(3);
-    home_cmd.append("G0Y-");
-    double step = ui->lineEdit_step->text().trimmed().replace(',', '.').toDouble(&flag);
+/* Select absolute */
+void MainWindow::on_pushButton_SelectAbsolute_clicked() {
+    QByteArray absolute_cmd;
+    absolute_cmd.append(3);
+    absolute_cmd.append("G90");
+    absolute_cmd.append(END_COMMAND);
+    emit requestWrite(absolute_cmd);
 
-    home_cmd.append(QByteArray::number(step, 'f', 4));
-    home_cmd.append(END_COMMAND);
-    emit requestWrite(home_cmd);
+    ui->lineEdit_WP_X->setText(QString::number(Coordinates.work_x + Coordinates.origin_x));
+    ui->lineEdit_WP_Y->setText(QString::number(Coordinates.work_y + Coordinates.origin_y));
+    ui->lineEdit_WP_Z->setText(QString::number(Coordinates.work_z + Coordinates.origin_z));
 }
 /* Move +Y */
-void MainWindow::on_pushButton_10_clicked()
+void MainWindow::on_pushButton_YP_clicked()
 {
-    QByteArray home_cmd;
+    QByteArray move_cmd;
     bool flag = false;
-    home_cmd.append(3);
-    home_cmd.append("G0Y");
-    double step = ui->lineEdit_step->text().trimmed().replace(',', '.').toDouble(&flag);
+    move_cmd.append('\0');
+    move_cmd.append("G1Y");
+    double step = ui->lineEdit_WP_Y->text().trimmed().toDouble() + ui->lineEdit_step->text().trimmed().replace(',', '.').toDouble(&flag);
 
-    home_cmd.append(QByteArray::number(step, 'f', 4));
-    home_cmd.append(END_COMMAND);
-    emit requestWrite(home_cmd);
+    move_cmd.append(QByteArray::number(step, 'f', 4));
+    move_cmd.append(END_COMMAND);
+    move_cmd[0] = move_cmd.size() - 2;
+    last_command = write;
+    emit requestWrite(move_cmd);
+}
+/* Move -Y */
+void MainWindow::on_pushButton_YM_clicked()
+{
+    QByteArray move_cmd;
+    bool flag = false;
+    move_cmd.append('\0');
+    move_cmd.append("G1Y");
+    double step = ui->lineEdit_WP_Y->text().trimmed().toDouble() - ui->lineEdit_step->text().trimmed().replace(',', '.').toDouble(&flag);
+
+    move_cmd.append(QByteArray::number(step, 'f', 4));
+    move_cmd.append(END_COMMAND);
+    move_cmd[0] = move_cmd.size() - 2;
+    last_command = write;
+    emit requestWrite(move_cmd);
 }
 /* Move +X */
-void MainWindow::on_pushButton_7_clicked()
+void MainWindow::on_pushButton_XP_clicked()
 {
-    QByteArray home_cmd;
+    QByteArray move_cmd;
     bool flag = false;
-    home_cmd.append(3);
-    home_cmd.append("G0X");
-    double step = ui->lineEdit_step->text().trimmed().replace(',', '.').toDouble(&flag);
+    move_cmd.append('\0');
+    move_cmd.append("G1X");
+    double step = ui->lineEdit_WP_X->text().trimmed().toDouble() + ui->lineEdit_step->text().trimmed().replace(',', '.').toDouble(&flag);
 
-    home_cmd.append(QByteArray::number(step, 'f', 4));
-    home_cmd.append(END_COMMAND);
-    emit requestWrite(home_cmd);
+    move_cmd.append(QByteArray::number(step, 'f', 4));
+    move_cmd.append(END_COMMAND);
+    move_cmd[0] = move_cmd.size() - 2;
+    last_command = write;
+    emit requestWrite(move_cmd);
 }
 /* Move -X */
-void MainWindow::on_pushButton_9_clicked()
+void MainWindow::on_pushButton_XM_clicked()
 {
-    QByteArray home_cmd;
+    QByteArray move_cmd;
     bool flag = false;
-    home_cmd.append(3);
-    home_cmd.append("G0X-");
-    double step = ui->lineEdit_step->text().trimmed().replace(',', '.').toDouble(&flag);
+    move_cmd.append('\0');
+    move_cmd.append("G1X");
+    double step = ui->lineEdit_WP_X->text().trimmed().toDouble() - ui->lineEdit_step->text().trimmed().replace(',', '.').toDouble(&flag);
 
-    home_cmd.append(QByteArray::number(step, 'f', 4));
-    home_cmd.append(END_COMMAND);
-    emit requestWrite(home_cmd);
+    move_cmd.append(QByteArray::number(step, 'f', 4));
+    move_cmd.append(END_COMMAND);
+    move_cmd[0] = move_cmd.size() - 2;
+    last_command = write;
+    emit requestWrite(move_cmd);
 }
 
+/* Move +Z */
+void MainWindow::on_pushButton_ZP_clicked()
+{
+    QByteArray move_cmd;
+    bool flag = false;
+    move_cmd.append('\0');
+    move_cmd.append("G1Z");
+    double step = ui->lineEdit_WP_Z->text().trimmed().toDouble() + ui->lineEdit_step->text().trimmed().replace(',', '.').toDouble(&flag);
+
+    move_cmd.append(QByteArray::number(step, 'f', 4));
+    move_cmd.append(END_COMMAND);
+    move_cmd[0] = move_cmd.size() - 2;
+    last_command = write;
+    emit requestWrite(move_cmd);
+}
+/* Move -Z */
+void MainWindow::on_pushButton_ZM_clicked()
+{
+    QByteArray move_cmd;
+    bool flag = false;
+    move_cmd.append('\0');
+    move_cmd.append("G1Z");
+    double step = ui->lineEdit_WP_Z->text().trimmed().toDouble() - ui->lineEdit_step->text().trimmed().replace(',', '.').toDouble(&flag);
+
+    move_cmd.append(QByteArray::number(step, 'f', 4));
+    move_cmd.append(END_COMMAND);
+    move_cmd[0] = move_cmd.size() - 2;
+    last_command = write;
+    emit requestWrite(move_cmd);
+}
 
 
 void MainWindow::on_pushButton_clicked()
@@ -220,6 +345,16 @@ void MainWindow::on_pushButton_clicked()
     std::string fileF = ui->lineEdit_file_URL->text().toStdString();
     // emit ComPortProcessCode_signal(fileF);
 }
+/* Send G-Code Line */
+void MainWindow::on_pushButton_SendGCode_clicked()
+{
+    QByteArray code_cmd;
+    code_cmd.append('\0');
+    code_cmd.append(ui->lineEdit_GCommandLine->text().trimmed().replace(',', '.'));
+    code_cmd.append(END_COMMAND);
+    code_cmd[0] = code_cmd.size() - 2;
+    last_command = write;
+    emit requestWrite(code_cmd);
 
-
+}
 
