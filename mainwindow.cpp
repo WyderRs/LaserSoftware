@@ -94,13 +94,14 @@ void MainWindow::onWriteResult(bool success, qint64 n, const QString &error)
 
 void MainWindow::onDataReceived(const QByteArray &data)
 {
-    // сюда приходят входящие байты — выводим в консоль
-    if (last_command == write) {
+    // The data of common parameters was received
+    if ((uint8_t)data[0] == 0xAA) {
 
-        float x, y, z;
-        memcpy(&x, data.constData() + 0, 4);
-        memcpy(&y, data.constData() + 4, 4);
-        memcpy(&z, data.constData() + 8, 4);
+        float x, y, z, feedrate;
+        memcpy(&x, data.constData() + 4, 4);
+        memcpy(&y, data.constData() + 8, 4);
+        memcpy(&z, data.constData() + 12, 4);
+        memcpy(&feedrate, data.constData() + 16, 4);
 
         Coordinates.work_x = x;
         Coordinates.work_y = y;
@@ -109,12 +110,30 @@ void MainWindow::onDataReceived(const QByteArray &data)
         ui->lineEdit_WP_X->setText(QString::number(x, 'f', 3));
         ui->lineEdit_WP_Y->setText(QString::number(y, 'f', 3));
         ui->lineEdit_WP_Z->setText(QString::number(z, 'f', 3));
+        ui->lineEdit_Feedrate->setText(QString::number(feedrate, 'f', 3));
 
-        last_command = none;
     }
+    // сюда приходят входящие байты — выводим в консоль
+    // else if (last_command == write) {
 
-    ui->plainTextEdit_log->appendPlainText(data);
-    qInfo() << data << '\n';
+    //     float x, y, z;
+    //     memcpy(&x, data.constData() + 0, 4);
+    //     memcpy(&y, data.constData() + 4, 4);
+    //     memcpy(&z, data.constData() + 8, 4);
+
+    //     Coordinates.work_x = x;
+    //     Coordinates.work_y = y;
+    //     Coordinates.work_z = z;
+
+    //     ui->lineEdit_WP_X->setText(QString::number(x, 'f', 3));
+    //     ui->lineEdit_WP_Y->setText(QString::number(y, 'f', 3));
+    //     ui->lineEdit_WP_Z->setText(QString::number(z, 'f', 3));
+
+    //     last_command = none;
+    // }
+
+    // ui->plainTextEdit_log->appendPlainText(data);
+    // qInfo() << data << '\n';
 }
 
 void MainWindow::onCodeFinished(bool success, const QString &error)
@@ -208,18 +227,14 @@ void MainWindow::on_pushButton_SetOrigin_clicked()
     set_origin_cmd.append("G92");
     set_origin_cmd.append(END_COMMAND);
     emit requestWrite(set_origin_cmd);
-
+    // Repair this block for double setting origin
     Coordinates.origin_x = Coordinates.work_x;
     Coordinates.origin_y = Coordinates.work_y;
     Coordinates.origin_z = Coordinates.work_z;
 
-    ui->lineEdit_WP_X->setText(QString::number(0));
-    ui->lineEdit_WP_Y->setText(QString::number(0));
-    ui->lineEdit_WP_Z->setText(QString::number(0));
-
-    ui->lineEdit_OP_X->setText(QString::number(Coordinates.origin_x));
-    ui->lineEdit_OP_Y->setText(QString::number(Coordinates.origin_y));
-    ui->lineEdit_OP_Z->setText(QString::number(Coordinates.origin_z));
+    ui->lineEdit_OP_X->setText(QString::number(Coordinates.origin_x, 'f', 3));
+    ui->lineEdit_OP_Y->setText(QString::number(Coordinates.origin_y, 'f', 3));
+    ui->lineEdit_OP_Z->setText(QString::number(Coordinates.origin_z, 'f', 3));
 }
 /* Select origin */
 void MainWindow::on_pushButton_SelectOrigin_clicked()
@@ -250,10 +265,11 @@ void MainWindow::on_pushButton_SelectAbsolute_clicked() {
 /* Move +Y */
 void MainWindow::on_pushButton_YP_clicked()
 {
+    // to add G91-code for relative movement
     QByteArray move_cmd;
     bool flag = false;
     move_cmd.append('\0');
-    move_cmd.append("G1Y");
+    move_cmd.append("Y");
     double step = ui->lineEdit_WP_Y->text().trimmed().toDouble() + ui->lineEdit_step->text().trimmed().replace(',', '.').toDouble(&flag);
 
     move_cmd.append(QByteArray::number(step, 'f', 4));
@@ -265,10 +281,11 @@ void MainWindow::on_pushButton_YP_clicked()
 /* Move -Y */
 void MainWindow::on_pushButton_YM_clicked()
 {
+    // to add G91-code for relative movement
     QByteArray move_cmd;
     bool flag = false;
     move_cmd.append('\0');
-    move_cmd.append("G1Y");
+    move_cmd.append("Y");
     double step = ui->lineEdit_WP_Y->text().trimmed().toDouble() - ui->lineEdit_step->text().trimmed().replace(',', '.').toDouble(&flag);
 
     move_cmd.append(QByteArray::number(step, 'f', 4));
@@ -280,10 +297,11 @@ void MainWindow::on_pushButton_YM_clicked()
 /* Move +X */
 void MainWindow::on_pushButton_XP_clicked()
 {
+    // to add G91-code for relative movement
     QByteArray move_cmd;
     bool flag = false;
     move_cmd.append('\0');
-    move_cmd.append("G1X");
+    move_cmd.append("X");
     double step = ui->lineEdit_WP_X->text().trimmed().toDouble() + ui->lineEdit_step->text().trimmed().replace(',', '.').toDouble(&flag);
 
     move_cmd.append(QByteArray::number(step, 'f', 4));
@@ -295,10 +313,11 @@ void MainWindow::on_pushButton_XP_clicked()
 /* Move -X */
 void MainWindow::on_pushButton_XM_clicked()
 {
+    // to add G91-code for relative movement
     QByteArray move_cmd;
     bool flag = false;
     move_cmd.append('\0');
-    move_cmd.append("G1X");
+    move_cmd.append("X");
     double step = ui->lineEdit_WP_X->text().trimmed().toDouble() - ui->lineEdit_step->text().trimmed().replace(',', '.').toDouble(&flag);
 
     move_cmd.append(QByteArray::number(step, 'f', 4));
@@ -311,10 +330,11 @@ void MainWindow::on_pushButton_XM_clicked()
 /* Move +Z */
 void MainWindow::on_pushButton_ZP_clicked()
 {
+    // to add G91-code for relative movement
     QByteArray move_cmd;
     bool flag = false;
     move_cmd.append('\0');
-    move_cmd.append("G1Z");
+    move_cmd.append("Z");
     double step = ui->lineEdit_WP_Z->text().trimmed().toDouble() + ui->lineEdit_step->text().trimmed().replace(',', '.').toDouble(&flag);
 
     move_cmd.append(QByteArray::number(step, 'f', 4));
@@ -326,10 +346,11 @@ void MainWindow::on_pushButton_ZP_clicked()
 /* Move -Z */
 void MainWindow::on_pushButton_ZM_clicked()
 {
+    // to add G91-code for relative movement
     QByteArray move_cmd;
     bool flag = false;
     move_cmd.append('\0');
-    move_cmd.append("G1Z");
+    move_cmd.append("Z");
     double step = ui->lineEdit_WP_Z->text().trimmed().toDouble() - ui->lineEdit_step->text().trimmed().replace(',', '.').toDouble(&flag);
 
     move_cmd.append(QByteArray::number(step, 'f', 4));

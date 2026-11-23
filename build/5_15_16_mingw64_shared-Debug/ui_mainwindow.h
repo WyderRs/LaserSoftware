@@ -69,6 +69,9 @@ public:
     QHBoxLayout *horizontalLayout_8;
     QLabel *label_9;
     QLineEdit *lineEdit_WP_Z;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *label_17;
+    QLineEdit *lineEdit_Feedrate;
     QVBoxLayout *verticalLayout_5;
     QLabel *label_14;
     QHBoxLayout *horizontalLayout_5;
@@ -324,6 +327,24 @@ public:
 
         verticalLayout_2->addLayout(horizontalLayout_8);
 
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        label_17 = new QLabel(frame);
+        label_17->setObjectName(QString::fromUtf8("label_17"));
+        label_17->setFont(font);
+
+        horizontalLayout_2->addWidget(label_17);
+
+        lineEdit_Feedrate = new QLineEdit(frame);
+        lineEdit_Feedrate->setObjectName(QString::fromUtf8("lineEdit_Feedrate"));
+        lineEdit_Feedrate->setFont(font1);
+        lineEdit_Feedrate->setReadOnly(true);
+
+        horizontalLayout_2->addWidget(lineEdit_Feedrate);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_2);
+
 
         verticalLayout_8->addLayout(verticalLayout_2);
 
@@ -571,6 +592,8 @@ public:
         lineEdit_WP_Y->setText(QCoreApplication::translate("MainWindow", "0.000", nullptr));
         label_9->setText(QCoreApplication::translate("MainWindow", "Z:", nullptr));
         lineEdit_WP_Z->setText(QCoreApplication::translate("MainWindow", "0.000", nullptr));
+        label_17->setText(QCoreApplication::translate("MainWindow", "Feedrate:", nullptr));
+        lineEdit_Feedrate->setText(QCoreApplication::translate("MainWindow", "0.000", nullptr));
         label_14->setText(QCoreApplication::translate("MainWindow", "Origin position", nullptr));
         label_11->setText(QCoreApplication::translate("MainWindow", "X:", nullptr));
         lineEdit_OP_X->setText(QCoreApplication::translate("MainWindow", "0.000", nullptr));

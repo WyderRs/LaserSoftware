@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>997</width>
-    <height>786</height>
+    <width>1163</width>
+    <height>428</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <rect>
       <x>610</x>
       <y>20</y>
-      <width>351</width>
+      <width>481</width>
       <height>341</height>
      </rect>
     </property>
@@ -408,6 +408,37 @@
              </item>
              <item>
               <widget class="QLineEdit" name="lineEdit_WP_Z">
+               <property name="font">
+                <font>
+                 <pointsize>11</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>0.000</string>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="QLabel" name="label_17">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Feedrate:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_Feedrate">
                <property name="font">
                 <font>
                  <pointsize>11</pointsize>
@@ -835,7 +866,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>997</width>
+     <width>1163</width>
      <height>21</height>
     </rect>
    </property>
