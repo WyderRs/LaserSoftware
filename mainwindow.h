@@ -74,6 +74,12 @@ private slots:
 
     void on_pushButton_SendGCode_clicked();
 
+    void on_pushButton_TerminalClear_clicked();
+
+    void on_graphicsView_Regenerate_clicked();
+
+    void on_graphicsView_Clear_clicked();
+
 private:
     Ui::MainWindow *ui;
     bool m_connected = false;

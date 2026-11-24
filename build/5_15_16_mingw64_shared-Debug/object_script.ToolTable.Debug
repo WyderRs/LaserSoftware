@@ -1,0 +1,10 @@
+debug/comportworker.o
+debug/graphwindow.o
+debug/main.o
+debug/mainwindow.o
+debug/thread_COMport.o
+debug/tooltable_plugin_import.o
+debug/moc_comportworker.o
+debug/moc_graphwindow.o
+debug/moc_mainwindow.o
+debug/moc_thread_COMport.o

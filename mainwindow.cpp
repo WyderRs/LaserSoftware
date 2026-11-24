@@ -7,6 +7,8 @@
 
 #include "config.h"
 
+#include "graphwindow.h"
+
 enum last_command {
     none = 0,
     write,
@@ -49,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
     QFont mono("Consolas", 9);
     mono.setStyleHint(QFont::Monospace);
     ui->plainTextEdit_log->setFont(mono);
+
 
 }
 MainWindow::~MainWindow() {
@@ -97,11 +100,23 @@ void MainWindow::onDataReceived(const QByteArray &data)
     // The data of common parameters was received
     if ((uint8_t)data[0] == 0xAA) {
 
+        // typedef struct commonData_real_time_t {
+        //     uint8_t  header;     // 0xAA — синхрослово
+        //     uint8_t  type;       // 0x01 = кадр выполнен
+        //     uint16_t frame_id;   // номер кадра (строки G-code)
+        //     float    x, y, z;    // финальная позиция, мм
+        //     float    feedrate;   // подача,
+        //     uint8_t  mode;       // 0 = G0, 1 = G1, ...
+        //     uint8_t  status;     // 0 = OK, 1 = ошибка
+        // } commonData_real_time_t;
+
         float x, y, z, feedrate;
+        uint8_t type;
         memcpy(&x, data.constData() + 4, 4);
         memcpy(&y, data.constData() + 8, 4);
         memcpy(&z, data.constData() + 12, 4);
         memcpy(&feedrate, data.constData() + 16, 4);
+        memcpy(&type, data.constData() + 20, 1);
 
         Coordinates.work_x = x;
         Coordinates.work_y = y;
@@ -111,6 +126,13 @@ void MainWindow::onDataReceived(const QByteArray &data)
         ui->lineEdit_WP_Y->setText(QString::number(y, 'f', 3));
         ui->lineEdit_WP_Z->setText(QString::number(z, 'f', 3));
         ui->lineEdit_Feedrate->setText(QString::number(feedrate, 'f', 3));
+
+        // ui->graphicsView_MapScene->addPoint(x, y, type == 1 ? QColor(220, 20, 60) /*Crimson*/ : QColor(135, 206, 235)/*SkyBlue*/ );
+
+        ui->graphicsView_MapScene->addLine(x, y, type == 1 ? QColor(220, 20, 60) /*Crimson*/ : QColor(135, 206, 235)/*SkyBlue*/ );
+
+
+        qInfo() << x << '\t' << y << '\t' << z << '\t' << feedrate << '\t' << type << '\t';
 
     }
     // сюда приходят входящие байты — выводим в консоль
@@ -227,7 +249,7 @@ void MainWindow::on_pushButton_SetOrigin_clicked()
     set_origin_cmd.append("G92");
     set_origin_cmd.append(END_COMMAND);
     emit requestWrite(set_origin_cmd);
-    // Repair this block for double setting origin
+    // Repair this block for double origin setting
     Coordinates.origin_x = Coordinates.work_x;
     Coordinates.origin_y = Coordinates.work_y;
     Coordinates.origin_z = Coordinates.work_z;
@@ -376,6 +398,22 @@ void MainWindow::on_pushButton_SendGCode_clicked()
     code_cmd[0] = code_cmd.size() - 2;
     last_command = write;
     emit requestWrite(code_cmd);
+
+}
+
+/* Terminal clear */
+void MainWindow::on_pushButton_TerminalClear_clicked() {
+    ui->plainTextEdit_log->clear();
+}
+
+/* View regenerate */
+void MainWindow::on_graphicsView_Regenerate_clicked() {
+    ui->graphicsView_MapScene->regenerateView();
+}
+
+/* View clear */
+void MainWindow::on_graphicsView_Clear_clicked() {
+    ui->graphicsView_MapScene->clearView();
 
 }
 

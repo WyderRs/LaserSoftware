@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     comportworker.cpp \
+    graphwindow.cpp \
     main.cpp \
     mainwindow.cpp \
     thread_COMport.cpp
@@ -17,6 +18,7 @@ SOURCES += \
 HEADERS += \
     comportworker.h \
     config.h \
+    graphwindow.h \
     mainwindow.h \
     thread_COMport.h
 

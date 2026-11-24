@@ -1,0 +1,10 @@
+release/comportworker.o
+release/graphwindow.o
+release/main.o
+release/mainwindow.o
+release/thread_COMport.o
+release/tooltable_plugin_import.o
+release/moc_comportworker.o
+release/moc_graphwindow.o
+release/moc_mainwindow.o
+release/moc_thread_COMport.o

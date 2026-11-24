@@ -26,6 +26,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "graphwindow.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -105,6 +106,12 @@ public:
     QVBoxLayout *verticalLayout_10;
     QLabel *label_16;
     QPlainTextEdit *plainTextEdit_log;
+    QHBoxLayout *horizontalLayout_4;
+    QPushButton *pushButton_TerminalClear;
+    QPushButton *pushButton_TerminalCheck;
+    graphWindow *graphicsView_MapScene;
+    QPushButton *graphicsView_Regenerate;
+    QPushButton *graphicsView_Clear;
     QMenuBar *menubar;
     QMenu *menuFile;
     QStatusBar *statusbar;
@@ -113,14 +120,14 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(997, 786);
+        MainWindow->resize(1181, 694);
         actionOpen_file = new QAction(MainWindow);
         actionOpen_file->setObjectName(QString::fromUtf8("actionOpen_file"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         frame = new QFrame(centralwidget);
         frame->setObjectName(QString::fromUtf8("frame"));
-        frame->setGeometry(QRect(610, 20, 351, 341));
+        frame->setGeometry(QRect(740, 20, 411, 341));
         frame->setFrameShape(QFrame::Box);
         frame->setFrameShadow(QFrame::Raised);
         gridLayout_2 = new QGridLayout(frame);
@@ -531,7 +538,7 @@ public:
 
         layoutWidget2 = new QWidget(centralwidget);
         layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(10, 120, 171, 171));
+        layoutWidget2->setGeometry(QRect(10, 120, 171, 201));
         verticalLayout_10 = new QVBoxLayout(layoutWidget2);
         verticalLayout_10->setObjectName(QString::fromUtf8("verticalLayout_10"));
         verticalLayout_10->setContentsMargins(0, 0, 0, 0);
@@ -549,10 +556,42 @@ public:
 
         verticalLayout_10->addWidget(plainTextEdit_log);
 
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
+        pushButton_TerminalClear = new QPushButton(layoutWidget2);
+        pushButton_TerminalClear->setObjectName(QString::fromUtf8("pushButton_TerminalClear"));
+        pushButton_TerminalClear->setMinimumSize(QSize(0, 20));
+        pushButton_TerminalClear->setMaximumSize(QSize(16777215, 20));
+
+        horizontalLayout_4->addWidget(pushButton_TerminalClear);
+
+        pushButton_TerminalCheck = new QPushButton(layoutWidget2);
+        pushButton_TerminalCheck->setObjectName(QString::fromUtf8("pushButton_TerminalCheck"));
+        pushButton_TerminalCheck->setMinimumSize(QSize(0, 20));
+        pushButton_TerminalCheck->setMaximumSize(QSize(16777215, 20));
+
+        horizontalLayout_4->addWidget(pushButton_TerminalCheck);
+
+
+        verticalLayout_10->addLayout(horizontalLayout_4);
+
+        graphicsView_MapScene = new graphWindow(centralwidget);
+        graphicsView_MapScene->setObjectName(QString::fromUtf8("graphicsView_MapScene"));
+        graphicsView_MapScene->setGeometry(QRect(190, 120, 540, 480));
+        graphicsView_Regenerate = new QPushButton(centralwidget);
+        graphicsView_Regenerate->setObjectName(QString::fromUtf8("graphicsView_Regenerate"));
+        graphicsView_Regenerate->setGeometry(QRect(190, 610, 71, 20));
+        graphicsView_Regenerate->setMinimumSize(QSize(0, 20));
+        graphicsView_Regenerate->setMaximumSize(QSize(16777215, 20));
+        graphicsView_Clear = new QPushButton(centralwidget);
+        graphicsView_Clear->setObjectName(QString::fromUtf8("graphicsView_Clear"));
+        graphicsView_Clear->setGeometry(QRect(270, 610, 41, 20));
+        graphicsView_Clear->setMinimumSize(QSize(0, 20));
+        graphicsView_Clear->setMaximumSize(QSize(16777215, 20));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 997, 21));
+        menubar->setGeometry(QRect(0, 0, 1181, 21));
         menuFile = new QMenu(menubar);
         menuFile->setObjectName(QString::fromUtf8("menuFile"));
         MainWindow->setMenuBar(menubar);
@@ -613,6 +652,11 @@ public:
         button_url->setText(QCoreApplication::translate("MainWindow", "///", nullptr));
         button_send_code->setText(QCoreApplication::translate("MainWindow", "Send", nullptr));
         label_16->setText(QCoreApplication::translate("MainWindow", "Terminal", nullptr));
+        plainTextEdit_log->setPlainText(QString());
+        pushButton_TerminalClear->setText(QCoreApplication::translate("MainWindow", "Clear", nullptr));
+        pushButton_TerminalCheck->setText(QCoreApplication::translate("MainWindow", "Check", nullptr));
+        graphicsView_Regenerate->setText(QCoreApplication::translate("MainWindow", "Regenerate", nullptr));
+        graphicsView_Clear->setText(QCoreApplication::translate("MainWindow", "Clear", nullptr));
         menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
     } // retranslateUi
 

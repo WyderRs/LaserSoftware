@@ -3,7 +3,7 @@
 #include "config.h"
 
 #include "comportworker.h"
-
+#include "graphwindow.h"
 
 
 int main(int argc, char *argv[])
